@@ -13,7 +13,7 @@
         {{data.current.timestamp}}
       </div>
     </label>
-    <input type="checkbox" v-model="checked" :id="uid" class="hidden">
+    <input type="checkbox" v-model="checked" @change="$emit('toggle-student',uid)" :id="uid" class="hidden">
   </div>
 </template>
 

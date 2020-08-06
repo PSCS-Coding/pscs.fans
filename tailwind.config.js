@@ -7,7 +7,17 @@ module.exports = {
     './src/components/tiles/*.vue',
   ],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        72: '18rem',
+        84: '21rem',
+        96: '24rem',
+      },
+      cursor: {
+        grab: 'grab',
+        copy: 'copy',
+      },
+    },
   },
   variants: {},
   plugins: [],

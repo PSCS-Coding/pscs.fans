@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import Attendance from './views/Attendance.vue';
 
 Vue.use(Router);
 
@@ -10,16 +10,38 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'attendance',
+      component: Attendance,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/administrator/:page?',
+      name: 'administrator',
+      // component: () => import(/* webpackChunkName: "administrator" */ './views/Administrator.vue'),
+    },
+    {
+      path: '/user/:uid?',
+      name: 'user',
+      // component: () => import(/* webpackChunkName: "user" */ './views/User.vue'),
+    },
+    {
+      path: '/leaderboard',
+      name: 'leaderboard',
+      // component: () => import(/* webpackChunkName: "leaderboard" */ './views/Leaderboard.vue'),
+    },
+    {
+      path: '/statistics',
+      name: 'statistics',
+      // component: () => import(/* webpackChunkName: "statistics" */ './views/Statistics.vue'),
+    },
+    {
+      path: '/login',
+      name: 'login',
+      // component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
+    },
+    {
+      path: '/examples',
+      name: 'examples',
+      component: () => import(/* webpackChunkName: "examples" */ './views/Examples.vue'),
     },
   ],
 });

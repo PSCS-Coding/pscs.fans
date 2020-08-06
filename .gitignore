@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+/.firebaserc
+/firebaserc
 
 # local env files
 .env.local
@@ -19,3 +21,5 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+src/config.js
+*.cache

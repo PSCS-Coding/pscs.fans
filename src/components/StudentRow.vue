@@ -13,7 +13,7 @@
         {{data.current.timestamp}}
       </div>
     </label>
-    <input type="checkbox" v-model="checked" @change="$emit('toggle-student',uid)" :id="uid" class="hidden">
+    <input type="checkbox" @change="$emit('toggle-student',uid)" :id="uid" class="hidden">
   </div>
 </template>
 
@@ -22,12 +22,12 @@ export default {
   name: 'Student',
   data() {
     return {
-      checked: false,
     };
   },
   props: {
     data: Object,
     uid: String,
+    checked: Boolean,
   },
 };
 </script>

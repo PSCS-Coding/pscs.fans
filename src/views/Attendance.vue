@@ -16,10 +16,16 @@
 
       <!-- student container (v-if is to change the view between rows and tiles) -->
       <div v-if="tiles === true" class="flex flex-row justify-center flex-wrap w-full">
-        <StudentTile v-for="student in filteredStudents" :key="student.uid" :data="student.data" :uid="student.uid" @toggle-student="updateList" />
+        <StudentTile v-for="student in filteredStudents" :key="student.uid" :data="student.data" :uid="student.uid"
+          @toggle-student="updateList"
+          :checked="selectedstudents.includes(student.uid)"
+        />
       </div>
       <div v-else class="w-full">
-        <StudentRow v-for="student in filteredStudents" :key="student.uid" :data="student.data" :uid="student.uid" @toggle-student="updateList" />
+        <StudentRow v-for="student in filteredStudents" :key="student.uid" :data="student.data" :uid="student.uid"
+          @toggle-student="updateList"
+          :checked="selectedstudents.includes(student.uid)"
+        />
       </div>
 
       <!-- form column -->
@@ -34,7 +40,7 @@
           </div>
 
           <!-- example present button  -->
-          <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 my-2 rounded focus:outline-none focus:shadow-outline">
+          <button @click="submitStatus('Present')" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 my-2 rounded focus:outline-none focus:shadow-outline">
             Present
           </button>
 
@@ -49,9 +55,10 @@ import StudentTile from '@/components/StudentTile.vue';
 import StudentRow from '@/components/StudentRow.vue';
 import 'firebase/database';
 import * as firebase from 'firebase/app';
+import { changeStatus } from '@/functions.js';
 
 export default {
-  name: 'home',
+  name: 'attendance',
   components: {
     StudentTile,
     StudentRow,
@@ -85,6 +92,17 @@ export default {
       } else {
         this.selectedstudents.push(uid);
       }
+    },
+    async submitStatus(status) {
+      const promiseList = [];
+      this.selectedstudents.forEach((s) => {
+        promiseList.push(changeStatus(s, status, null, null).then(result => result).catch(err => err));
+      });
+      Promise.all(promiseList).then((uids) => {
+        uids.forEach((uid) => {
+          this.updateList(uid);
+        });
+      });
     },
   },
   mounted() {
